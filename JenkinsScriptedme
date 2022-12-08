@@ -1,0 +1,42 @@
+//scripted
+node("node1"){
+def MHD = tool name: "maven"
+stage('GitClone'){
+sh "echo this is git clone"
+git 'https://github.com/Hecksflakes/acada-web-app.git'
+}
+
+stage('Build'){
+sh "echo start of build process"
+sh "${MHD}/bin/mvn package"
+}
+
+stage('DeploytoStage'){
+sh "echo Deploy to Tomcat server"
+deploy adapters: [tomcat9(credentialsId: 'tom', path: '', url: 'http://54.91.214.20:8080')], contextPath: null, war: 'target/*war'
+}
+
+stage('.Approval'){
+sh "echo Approval needed"
+timeout(time:10, unit:"SECONDS"){
+input message:'Approval for UAT'
+}
+}
+
+stage('DeploytoUAT'){
+sh "echo Deploy to Tomcat server"
+deploy adapters: [tomcat9(credentialsId: 'tom', path: '', url: 'http://54.91.214.20:8080')], contextPath: null, war: 'target/*war'
+}
+
+stage('.Approval'){
+sh "echo Approval needed"
+timeout(time:10, unit:"SECONDS"){
+input message:'Approval for Production'
+}
+}
+
+stage('DeploytoProd'){
+sh "echo Deploy to Tomcat server"
+deploy adapters: [tomcat9(credentialsId: 'tom', path: '', url: 'http://54.91.214.20:8080')], contextPath: null, war: 'target/*war'
+}
+}
