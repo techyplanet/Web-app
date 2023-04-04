@@ -103,7 +103,7 @@
 	    <snapshotRepository>
 	      <id>nexus</id>
 	      <name>Akuracy Snapshot Nexus Repository</name>
-	      <url>http://54.189.166.69:8081/repository/first-snapshot/</url>
+	      <url>http://34.221.92.66:8081/repository/deploy-project-snapshot/</url>
 	    </snapshotRepository>
 	    
 	</distributionManagement>
