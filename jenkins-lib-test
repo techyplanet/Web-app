@@ -32,7 +32,7 @@ sh "mvn deploy"
 stage('5.DeploytoTStage'){
 steps{
 sh "echo Start of Tomcat deployment to stage"
-deploy adapters: [tomcat9(credentialsId: 'tomcat-cred', path: '', url: 'http://35.93.41.201:8080/')], contextPath: null, war: 'target/*war'
+deploy adapters: [tomcat9(credentialsId: 'tomcat-cred', path: '', url: 'http://34.216.47.191:8080/')], contextPath: null, war: 'target/*war'
 }
 }
 stage('6.ApprovalforUAT'){
